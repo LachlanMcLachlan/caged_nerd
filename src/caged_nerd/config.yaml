@@ -1,0 +1,4 @@
+# this config contains the parameters for setting the practice tool
+
+caged_tester:
+  level: 'beginner'
