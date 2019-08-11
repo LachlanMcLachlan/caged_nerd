@@ -1,18 +1,23 @@
-from setuptools import setup, find_packages
+# -*- coding: utf-8 -*-
+"""
+    Setup file for paint.
+    Use setup.cfg to configure your project.
 
-setup(name='caged_nerd',
-      version='1.0',
-      description='A nerdy practice tool for guitarists',
-      classifiers=[
-              'Development Status :: 4 - Beta',
-              'License :: OSI Approved :: MIT License',
-              'Programming Language :: Python :: 3.7',
-              'Topic :: Education'],
-      install_requires=['pytest'],
-      author='Lachlan McLachlan',
-      author_email='lachlan.mclachlan@outlook.com',
-      url='https://github.com/LachlanMcLachlan/caged_nerd',
-      license='MIT',
-      packages=find_packages(where=r'./src'),
-      zip_safe=False)
+    This file was generated with PyScaffold 3.2.1.
+    PyScaffold helps you to put up the scaffold of your new Python project.
+    Learn more under: https://pyscaffold.org/
+"""
+import sys
 
+from pkg_resources import VersionConflict, require
+from setuptools import setup
+
+try:
+    require("setuptools>=38.3")
+except VersionConflict:
+    print("Error: version of setuptools is too old (<38.3)!")
+    sys.exit(1)
+
+
+if __name__ == "__main__":
+    setup(python_requires=">=3.6")
