@@ -4,8 +4,7 @@ class ModeMapping():
     modes = {'major': 0, 'dorian': 1, 'phrygian': 2, 'lydian': 3, 'mixolydian': 4,
              'aeolian': 5, 'minor': 5, 'locrian': 6}
 
-class DistanceMapper():
-    distances = {1: 'minor_second'}
+
 def mode_starting_degree(mode_name):
     mode_name = mode_name.lower()
     if mode_name not in ModeMapping.modes.keys():
@@ -45,6 +44,6 @@ class ScaleCreator(object):
 
 '''
 I can make scales - I put the starting note and the desired scale degree into 
-that class and it makes a 
+that class and it makes a list of notes
 '''
 

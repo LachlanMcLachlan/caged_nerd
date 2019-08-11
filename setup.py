@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(name='caged_nerd',
       version='1.0',
@@ -13,5 +13,6 @@ setup(name='caged_nerd',
       author_email='lachlan.mclachlan@outlook.com',
       url='https://github.com/LachlanMcLachlan/caged_nerd',
       license='MIT',
-      packages=['caged_nerd'],
+      packages=find_packages(where=r'./src'),
       zip_safe=False)
+
