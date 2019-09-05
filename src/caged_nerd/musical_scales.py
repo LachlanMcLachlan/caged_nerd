@@ -1,4 +1,5 @@
 class Modes:
+    ionian = 'ionian'
     major = 'major'
     dorian = 'dorian'
     phrygian = 'phrygian'
@@ -9,13 +10,14 @@ class Modes:
     locrian = 'locrian'
 
 class ModeMapping():
-    modes = {Modes.major: 0, Modes.dorian: 1, Modes.phrygian: 2,
+    modes = {Modes.major: 0, Modes.ionian: 0, Modes.dorian: 1, Modes.phrygian: 2,
              Modes.lydian: 3, Modes.mixolydian: 4,
              Modes.aeolian: 5, Modes.minor: 5, Modes.locrian: 6}
 
 class ChordMapping():
     # maps the mode number to the chords available for that mode
      modes = {
+         ModeMapping.modes[Modes.ionian]: ['major', 'maj7'],
          ModeMapping.modes[Modes.major]: ['major', 'maj7'],
          ModeMapping.modes[Modes.dorian]: ['m', 'm7'],
          ModeMapping.modes[Modes.phrygian]: ['m', 'm7'],
@@ -35,15 +37,17 @@ def mode_starting_degree(mode_name):
     return ModeMapping.modes[mode_name]
 
 major_scale = 'T,T,S,T,T,T,S'.split(',')
-notes = 'A, B flat, B, C, D flat, D, E flat, E, F, G flat, G, A Flat'.split(', ')
+major_chords = 'Major, Minor, Minor, Major, Major, Minor, Dim'.split(', ')
+notes = 'A, B flat, B, C, D flat, D, E flat, E, F, G flat, G, A flat'.split(', ')
 
 
 class ScaleCreator(object):
 
     def __init__(self, starting_note, mode):
-        self._starting_note = starting_note
+        self._starting_note = starting_note.upper()
         self._mode_starting_degree = mode_starting_degree(mode)
-        self._intervals = self._get_intervals()
+        self.index = self._mode_starting_degree % 12
+        self._intervals = self._circular_index(self.index, major_scale)
         self.scale = self._get_scale()
         self.chords = self._get_chords(self.scale)
 
@@ -55,16 +59,6 @@ class ScaleCreator(object):
     def _get_scale(self):
         distances = self._intervals_to_distances(self._intervals)
         return self._scale_as_list(distances)
-
-    def _get_chords(self, scale):
-        # find the starting degree
-        degrees = [self._mode_starting_degree] + \
-                  list(range(self._mode_starting_degree + 1, 8)) + \
-                  list(range(0, self._mode_starting_degree))
-
-
-
-
 
     def _scale_as_list(self, distances):
         note_index = notes.index(self._starting_note)
@@ -80,7 +74,16 @@ class ScaleCreator(object):
         return [2 if interval == 'T' else 1 if interval == 'S' \
             else ValueError(message) for interval in intervals]
 
+    def _get_chords(self, scale):
+        # find the starting degree
+        index = self._mode_starting_degree % 12
+        major_minor = self._circular_index(index, major_chords)
+        return [f'{note} {chord}' for (note, chord) in zip(scale, major_minor)]
 
+    @staticmethod
+    def _circular_index(index, input_list):
+        '''starts on an index in a list'''
+        return input_list[index: ] + input_list[ :index]
 
 '''
 I can make scales - I put the starting note and the desired scale degree into 
