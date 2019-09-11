@@ -38,7 +38,10 @@ def mode_starting_degree(mode_name):
 
 major_scale = 'T,T,S,T,T,T,S'.split(',')
 major_chords = 'Major, Minor, Minor, Major, Major, Minor, Dim'.split(', ')
-notes = 'A, B flat, B, C, D flat, D, E flat, E, F, G flat, G, A flat'.split(', ')
+notes = ['A', ('A sharp', 'B flat'), 'B', 'C',
+         ('C sharp', 'D flat'), 'D', ('D sharp', 'E flat'), 'E', 'F',
+         ('F sharp, G flat'), 'G', ('G sharp', 'A flat')]
+
 
 
 class ScaleCreator(object):
@@ -64,9 +67,15 @@ class ScaleCreator(object):
         note_index = notes.index(self._starting_note)
         scale = [notes[note_index]]
         for distance in distances:
-            note_index += distance
-            note_index %= 12
-            scale.append(notes[note_index])
+            note_index = (note_index + distance) % 12
+            note = notes[note_index]
+            # update the note if it's a sharp of the same note
+            flat_or_sharp = isinstance(note, tuple)
+            if flat_or_sharp and distance == 1:
+                note = note[1]
+            elif flat_or_sharp:
+                note = note[0]
+            scale.append(note)
         return scale
 
     def _intervals_to_distances(self, intervals):
