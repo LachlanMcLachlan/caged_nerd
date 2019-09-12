@@ -42,20 +42,20 @@ major_scale = 'T,T,S,T,T,T,S'.split(',')
 major_chords = 'Major, Minor, Minor, Major, Major, Minor, Dim'.split(', ')
 
 notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
-note_numbers = [1, 3, 4, 6, 8, 9, 11]
+note_numbers = [0, 2, 3, 5, 7, 8, 10]
 d_note_numbers = {
-    1: 'A',
-    2: ('A Sharp', 'B Flat'),
-    3: 'B',
-    4: 'C',
-    5: ('C Sharp', 'D Flat'),
-    6: 'D',
-    7: ('D Sharp', 'E Flat'),
-    8: 'E',
-    9: 'F',
-    10: ('F Sharp', 'G Flat'),
-    11: 'G',
-    12: ('G Sharp', 'A Flat')
+    0: 'A',
+    1: ('A Sharp', 'B Flat'),
+    2: 'B',
+    3: 'C',
+    4: ('C Sharp', 'D Flat'),
+    5: 'D',
+    6: ('D Sharp', 'E Flat'),
+    7: 'E',
+    8: 'F',
+    9: ('F Sharp', 'G Flat'),
+    10: 'G',
+    11: ('G Sharp', 'A Flat')
 }
 
 
@@ -80,7 +80,7 @@ class ScaleCreator(object):
         note_number = note_numbers[note_position]
         note_number += 1 if 'SHARP' in self._starting_note else 0
         note_number -= 1 if 'FLAT' in self._starting_note else 0
-        note_number %= 12
+        note_number %= 11
         return note_number
 
 
@@ -88,8 +88,7 @@ class ScaleCreator(object):
         # get the cumulative sum of note distances given the list of intervals
         distances_from_start = self._intervals_to_distances(self._intervals)
         note_numbers = [
-            (self._starting_note_number) + d % 12 for d in distances_from_start]
-        note_numbers.insert(0, self._starting_note_number)
+            (self._starting_note_number + d) % 11 for d in distances_from_start]
         return self._note_numbers_to_notes(note_numbers)
 
 
