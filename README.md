@@ -23,3 +23,4 @@ your performance finding each chord.
 Simple. Like an ugly, featureless version of GuitarHero. (but with a real guitar and an honest purpose, to make you better at
 finding chords).
 
+(Please note the project is in its development stage. I'll release a stable version once it...actually works.)
