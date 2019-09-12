@@ -17,10 +17,9 @@ e.g. 'find the chord E major in the C form'
 
 Once you find the chord, hit the space bar.
 
-Once you're session has finished (i.e. you've played the number of chords you said you would), caged_nerd gives you a summary of
-your performance finding each chord.
+Once you're session has finished (i.e. you've played the number of chords you said you would), caged_nerd gives you a summary of your performance.
 
-Simple. Like an ugly, featureless version of GuitarHero. (but with a real guitar and an honest purpose, to make you better at
+Simple. Like an ugly, featureless version of GuitarHero. (but with a real guitar and an honest purpose: to make you better at
 finding chords).
 
 (Please note the project is in its development stage. I'll release a stable version once it...actually works.)
