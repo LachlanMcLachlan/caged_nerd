@@ -16,20 +16,6 @@ class ModeMapping():
              Modes.lydian: 3, Modes.mixolydian: 4,
              Modes.aeolian: 5, Modes.minor: 5, Modes.locrian: 6}
 
-# class ChordMapping():
-#     # maps the mode number to the chords available for that mode
-#      modes = {
-#          ModeMapping.modes[Modes.ionian]: ['major', 'maj7'],
-#          ModeMapping.modes[Modes.major]: ['major', 'maj7'],
-#          ModeMapping.modes[Modes.dorian]: ['m', 'm7'],
-#          ModeMapping.modes[Modes.phrygian]: ['m', 'm7'],
-#          ModeMapping.modes[Modes.lydian]: ['major', 'maj7'],
-#          ModeMapping.modes[Modes.mixolydian]: ['major', '7'],
-#          ModeMapping.modes[Modes.aeolian]: ['m', 'm7'],
-#          ModeMapping.modes[Modes.minor]: ['m', 'm7'],
-#          ModeMapping.modes[Modes.locrian]: ['dim', 'dim7']
-#      }
-
 
 def mode_starting_degree(mode_name):
     mode_name = mode_name.lower()
@@ -73,6 +59,7 @@ class ScaleCreator(object):
         self.chords = self._get_chords(self.scale)
 
     def _format_starting_note(self, starting_note):
+        '''format the note provided by the user'''
         starting_note = starting_note.lower()
         note = starting_note[0].upper()
         if 'flat' in starting_note:
@@ -115,6 +102,7 @@ class ScaleCreator(object):
         return notes
 
     def _intervals_to_distances(self, intervals):
+        '''transforms intervals like T and S to numerical distances on the keyboard'''
         message = 'Interval not recognised. Intervals must be either \'T\' or \'S\''
         distances = [2 if interval == 'T' else 1 if interval == 'S' \
             else ValueError(message) for interval in intervals]
