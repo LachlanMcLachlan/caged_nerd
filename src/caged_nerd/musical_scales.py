@@ -45,24 +45,23 @@ notes = ['A', 'B', 'C', 'D', 'E', 'F', 'G']
 note_numbers = [0, 2, 3, 5, 7, 8, 10]
 d_note_numbers = {
     0: 'A',
-    1: ('A Sharp', 'B Flat'),
+    1: ('A sharp', 'B flat'),
     2: 'B',
     3: 'C',
-    4: ('C Sharp', 'D Flat'),
+    4: ('C sharp', 'D flat'),
     5: 'D',
-    6: ('D Sharp', 'E Flat'),
+    6: ('D sharp', 'E flat'),
     7: 'E',
     8: 'F',
-    9: ('F Sharp', 'G Flat'),
+    9: ('F sharp', 'G flat'),
     10: 'G',
-    11: ('G Sharp', 'A Flat')
+    11: ('G sharp', 'A flat')
 }
-
 
 class ScaleCreator(object):
 
     def __init__(self, starting_note, mode):
-        self._starting_note = starting_note.upper()
+        self._starting_note = self._format_starting_note(starting_note)
         # get the numerical position of the starting note
         self._starting_note_number = self._get_note_number()
         # get the starting number of the mode we're in
@@ -73,14 +72,23 @@ class ScaleCreator(object):
         self.scale = self._get_scale()
         self.chords = self._get_chords(self.scale)
 
+    def _format_starting_note(self, starting_note):
+        starting_note = starting_note.lower()
+        note = starting_note[0].upper()
+        if 'flat' in starting_note:
+            note = f'{note} flat'
+        if 'sharp' in starting_note:
+            note = f'{note} sharp'
+        return note
 
     def _get_note_number(self):
         '''gets the starting note number from 1 to 12'''
         note_position = notes.index(self._starting_note[0])
         note_number = note_numbers[note_position]
-        note_number += 1 if 'SHARP' in self._starting_note else 0
-        note_number -= 1 if 'FLAT' in self._starting_note else 0
-        note_number %= 11
+        note_number += 1 if 'sharp' in self._starting_note else 0
+        note_number -= 1 if 'flat' in self._starting_note else 0
+        # deal with edge case if note number is less than 0
+        note_number = (note_number % 11) if note_number >= 0 else 11
         return note_number
 
 
@@ -88,7 +96,7 @@ class ScaleCreator(object):
         # get the cumulative sum of note distances given the list of intervals
         distances_from_start = self._intervals_to_distances(self._intervals)
         note_numbers = [
-            (self._starting_note_number + d) % 11 for d in distances_from_start]
+            (self._starting_note_number + d) % 12 for d in distances_from_start]
         return self._note_numbers_to_notes(note_numbers)
 
 
@@ -102,7 +110,7 @@ class ScaleCreator(object):
             if isinstance(note, tuple):
                 # decide whether to use sharp or flat based on previous note values
                 previous_letter = notes[-1][0]
-                note = note[0] if note[1].startswith(previous_letter) else note[1]
+                note = note[1] if note[0].startswith(previous_letter) else note[0]
             notes.append(note)
         return notes
 
