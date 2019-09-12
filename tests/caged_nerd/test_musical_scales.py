@@ -7,7 +7,10 @@ from caged_nerd import musical_scales as mus
     argvalues=[
         ('C', 'major', ['C', 'D', 'E', 'F', 'G', 'A', 'B', 'C']),
         ('f', 'major', ['F', 'G', 'A', 'B flat', 'C', 'D', 'E', 'F']),
-        ('f', 'minor', ['F', 'G', 'A flat', 'B flat', 'C', 'D flat', 'E flat', 'F'])
+        ('f', 'minor', ['F', 'G', 'A flat', 'B flat', 'C', 'D flat', 'E flat', 'F']),
+        ('e', 'major', ['E', 'F sharp','G sharp', 'A', 'B', 'C sharp', 'D sharp', 'E']),
+        ('c sharp', 'minor', ['C sharp', 'D sharp', 'E', 'F sharp', 'G sharp', 'A', 'B', 'C sharp']),
+        ('a FLAT', 'mixolydian', ['A flat', 'B flat', 'C', 'D flat', 'E flat', 'F', 'G flat', 'A flat'])
     ]
 )
 def test_musical_scales_return_scale(starting_note, mode, expected_scale):
