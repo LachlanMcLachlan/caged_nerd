@@ -44,7 +44,7 @@ def get_parser():
     )
 
     parser_chords.add_argument(
-        "--starting_note",
+        "--start-on",
         "-sn",
         dest="starting_note",
         required=False,
