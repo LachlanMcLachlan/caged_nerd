@@ -1,5 +1,9 @@
 import numpy as np
 
+class CagedMapping:
+    minor = ['A', 'E', 'D']
+    major = ['C', 'A', 'G', 'E', 'D']
+
 class Modes:
     ionian = 'ionian'
     major = 'major'
@@ -91,7 +95,7 @@ class ScaleCreator(object):
         for num in note_numbers:
             note = d_note_numbers[num]
             if isinstance(note, tuple):
-                # decide whether to use sharp or flat based on previous note values
+                # decide whether to use sharp or flat based on previous note value
                 previous_letter = notes[-1][0]
                 note = note[1] if note[0].startswith(previous_letter) else note[0]
             notes.append(note)
@@ -107,8 +111,8 @@ class ScaleCreator(object):
     def _get_chords(self):
         '''get the sequence of major and minor available in this key'''
         index = self._starting_degree % 12
-        major_minor = self._circular_index(index, major_chords)
-        return [f'{note} {chord}' for (note, chord) in zip(self.scale, major_minor)]
+        chord_sequence = self._circular_index(index, major_chords)
+        return [f'{note} {chord}' for (note, chord) in zip(self.scale, chord_sequence)]
 
     @staticmethod
     def _circular_index(index, input_list):
