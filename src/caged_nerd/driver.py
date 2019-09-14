@@ -11,8 +11,10 @@ class ChordsDriver():
     def main(self):
         chords = ScaleCreator(self.starting_note, self.mode).chords
         for i in range(0, self.rounds):
+            # make this a random choice with weights
             chord = random.choice(chords)
             form = self._choose_form(chord)
+            # user input goes here
             print(f'Play {chord} in the {form} form')
             time.sleep(2)
 
