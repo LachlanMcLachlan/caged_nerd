@@ -1,4 +1,19 @@
-# this config contains the parameters for setting the practice tool
+# placeholder file - it's not used at the moment but will be soon!
 
-caged_tester:
-  level: 'beginner'
+chord_weights:
+  minor: 0.5
+  major: 0.5
+  dim: 0
+MajorForms:
+  - C
+  - A
+  - G
+  - E
+  - D
+MinorForms:
+  - A
+  - E
+  - D
+
+delay_between_tries:
+  chords: 5

@@ -2,26 +2,26 @@ import argparse
 import sys
 import logging
 
-from caged_nerd.musical_scales import Modes
+from caged_nerd.musical_scales import Modes, ModeMapping
 from caged_nerd import driver
 
-CHORDS = 'chords'
+# available - these allow the `main` function to call the correct driver
+CHORDS = "chords"
 
 logger = logging.getLogger(__name__)
 
 
 def get_parser():
     """
-
-    Returns:
+    Sets up parsers in order to accept arguments from the command line.
+    Returns (ArgumentParser): parser object containing parsers and subparsers.
 
     """
     parser = argparse.ArgumentParser(description="A Python interface for caged_nerd. ")
     subparsers = parser.add_subparsers(help="sub-command help", dest="command")
 
     parser_chords = subparsers.add_parser(
-        CHORDS,
-        help="Tests you to find chords from a key and mode of your choice.",
+        CHORDS, help="Tests you to find chords from a key and mode of your choice."
     )
 
     parser.add_argument(
@@ -49,8 +49,8 @@ def get_parser():
         dest="starting_note",
         required=False,
         type=str,
-        help="The note you want to start on. e.g. B flat",
-        default='C'
+        help="The note on which you want to start. e.g. B flat",
+        default="C",
     )
 
     parser_chords.add_argument(
@@ -59,8 +59,10 @@ def get_parser():
         dest="mode",
         required=False,
         type=str,
-        help="The mode in which you want to play. e.g. Lydian/ Major/ Minor",
-        default=Modes.major
+        help="The mode in which you want to play. Choose from: {}".format(
+            ", ".join(list(ModeMapping.modes.keys()))
+        ),
+        default=Modes.major,
     )
 
     parser_chords.add_argument(
@@ -70,14 +72,16 @@ def get_parser():
         required=False,
         type=int,
         help="How many times to test you.",
-        default=10
+        default=10,
     )
 
     return parser
 
 
 def main(args):
-    """Main entry point allowing external calls
+    """
+    Main entrypoint. Its functionality is minimal. Its job is to parse arguments
+    from the command line and call the correct driver. That's it!
 
     Args:
       args ([str]): command line parameter list
@@ -87,9 +91,9 @@ def main(args):
     command = args.command
 
     if command == CHORDS:
-        driver.ChordsDriver(starting_note=args.starting_note,
-                            mode=args.mode,
-                            rounds=args.rounds).main()
+        driver.ChordsDriver(
+            starting_note=args.starting_note, mode=args.mode, rounds=args.rounds
+        ).main()
 
 
 def run():
