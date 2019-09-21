@@ -9,6 +9,14 @@ from caged_nerd.utils import get_execution_time
 
 class ChordsDriver:
     def __init__(self, starting_note, mode, rounds):
+        """
+        Driver containing functionality for testing how quickly the user can find
+        forms of chords in a given key using the CAGED system.
+        Args:
+            starting_note (str): the root note of the scale
+            mode (str): the mode in which to play
+            rounds (int): the number of chords to test
+        """
         self.starting_note = starting_note
         self.mode = mode
         self.rounds = rounds
