@@ -2,7 +2,7 @@ import argparse
 import sys
 import logging
 
-from caged_nerd.musical_scales import Modes
+from caged_nerd.musical_scales import Modes, ModeMapping
 from caged_nerd import driver
 
 # available - these allow the `main` function to call the correct driver
@@ -49,7 +49,7 @@ def get_parser():
         dest="starting_note",
         required=False,
         type=str,
-        help="The note you want to start on. e.g. B flat",
+        help="The note on which you want to start. e.g. B flat",
         default="C",
     )
 
@@ -59,7 +59,9 @@ def get_parser():
         dest="mode",
         required=False,
         type=str,
-        help="The mode in which you want to play. e.g. Lydian/ Major/ Minor",
+        help="The mode in which you want to play. Choose from: {}".format(
+            ", ".join(list(ModeMapping.modes.keys()))
+        ),
         default=Modes.major,
     )
 
