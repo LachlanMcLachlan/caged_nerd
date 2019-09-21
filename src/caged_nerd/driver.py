@@ -13,21 +13,31 @@ class ChordsDriver:
         self.mode = mode
         self.rounds = rounds
         self._message = "Play {} in the {} form"
+        self._chords = ScaleCreator(self.starting_note, self.mode).chords
 
     ChordFormTime = namedtuple("ChordFormTime", "chord, form, time")
 
     def main(self):
-        chords = ScaleCreator(self.starting_note, self.mode).chords
+        """
+        Runs the ChordDriver pipeline: asks the user to play a certain number
+        of chords in a given key and summarizes results.
+        Returns:
+            None
+
+        """
+        self.print_starting_message()
         user_results = []
         for i in range(0, self.rounds):
 
             # choose a chord and a form
-            chord = random.choice(chords)
+            chord = random.choice(self._chords)
             form = self._choose_form(chord)
 
             # test the user
-            print("..get ready...")
-            time.sleep(2)
+            print("-" * 80)
+            print(" ... get ready ... ")
+            print("-" * 80)
+            time.sleep(5)
             time_to_find_chord = user_execution(self._message, chord, form)
 
             user_results.append(self.ChordFormTime(chord, form, time_to_find_chord))
@@ -35,7 +45,22 @@ class ChordsDriver:
         df_results = pd.DataFrame.from_records(
             user_results, columns=self.ChordFormTime._fields
         )
+
+        df_results.sort_index(by="time", axis=0, ascending=True, inplace=True)
+
+        print("Well done! Here's how you did, from fastest to slowest ... ")
+
         print(df_results)
+
+    def print_starting_message(self):
+        chords = ", ".join(self._chords)
+        print(
+            f"You're gonna be asked to find {self.rounds} chords "
+            f"in {self.starting_note} {self.mode}... \n"
+            f"The chords in {self.starting_note} {self.mode} are: "
+            f"{chords}"
+        )
+        input("Press enter/return to begin...")
 
     def _choose_form(self, chord):
         if "Minor" in chord:
@@ -49,5 +74,5 @@ class ChordsDriver:
 @get_execution_time
 def user_execution(message, *args):
     print(message.format(*args))
-    input("Then press enter...")
-    print("-" * 80)
+    input("Then press enter ... ")
+    print("Nice!")
