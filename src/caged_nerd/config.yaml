@@ -1,4 +1,6 @@
-# this config contains the parameters for setting the practice tool
+# not used at the moment
 
-caged_tester:
-  level: 'beginner'
+chord_weights:
+  minor: 0.5
+  major: 0.5
+  dim: 0
