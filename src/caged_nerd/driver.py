@@ -16,6 +16,7 @@ class ChordsDriver():
             form = self._choose_form(chord)
             # user input goes here
             print(f'Play {chord} in the {form} form')
+            input('Press enter once you\'ve found the chord...)
             time.sleep(2)
 
 
