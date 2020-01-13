@@ -1,11 +1,10 @@
 import random
 import time
-import pandas as pd
 from collections import namedtuple
 
-from caged_nerd.musical_scales import ScaleCreator, CagedMapping
+import pandas as pd
+from caged_nerd.musical_scales import CagedMapping, ScaleCreator
 from caged_nerd.utils import get_execution_time
-
 
 class ChordsDriver:
     def __init__(self, starting_note, mode, rounds):
